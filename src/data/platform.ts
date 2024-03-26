@@ -24,8 +24,8 @@ export type PlatformInterface = {
 export const platforms: Record<'openai' | 'azure' | 'moonshot'|'claude'|'zhipu', PlatformInterface> = {
     openai: price_openai,
     azure: price_azure,
-    moonshot: price_moonshot,
     claude: price_claude,
+    moonshot: price_moonshot,
     zhipu: price_zhipu
 }
 export const platform_keys = Object.keys(platforms) as Array<keyof typeof platforms>;

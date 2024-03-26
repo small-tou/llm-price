@@ -81,9 +81,9 @@ export default function Home() {
             <div className={'flex gap-4 mt-2 pl-2'}>
               {
                 quickSizes.map((size) => {
-                  return <a key={size} href={'#'} onClick={() => {
+                  return <a key={size} onClick={() => {
                     setInputTokenSize(size);
-                  }} className={'underline'}>{size.toLocaleString()}</a>;
+                  }} className={'underline text-gray-500 cursor-pointer'}>{size.toLocaleString()}</a>;
                 })
               }
             </div>
@@ -97,9 +97,9 @@ export default function Home() {
             <div className={'flex gap-4 mt-2 pl-2'}>
               {
                 quickSizes.map((size) => {
-                  return <a key={size} href={'#'} onClick={() => {
+                  return <a key={size}  onClick={() => {
                     setOutputTokenSize(size);
-                  }} className={'underline'}>{size.toLocaleString()}</a>;
+                  }} className={'underline text-gray-500 cursor-pointer'}>{size.toLocaleString()}</a>;
                 })
               }
             </div>
