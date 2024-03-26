@@ -10,7 +10,7 @@ export default function Home() {
     const [inputTokenSize, setInputTokenSize] = useState<number>(1000)
     const [outputTokenSize, setOutputTokenSize] = useState<number>(1000)
     const [outputPriceUnit, setOutputPriceUnit] = useState<'USD' | 'CNY'>('USD')
-    const [outputPriceUnitSymbol, setOutputPriceUnitSymbol] = useState<'$' | '¥'>(localStorage.getItem('outputPriceUnit') as any || '$')
+    const [outputPriceUnitSymbol, setOutputPriceUnitSymbol] = useState<'$' | '¥'>( '$')
 
     function getPrice(sourcePrice: number, from: 'USD' | 'CNY', to: 'USD' | 'CNY') {
 
@@ -40,6 +40,13 @@ export default function Home() {
     useEffect(() => {
         localStorage.setItem('outputPriceUnit', outputPriceUnit)
     }, [outputPriceUnit])
+
+    useEffect(() => {
+        const outputPriceUnit = localStorage.getItem('outputPriceUnit') as 'USD' | 'CNY';
+        if (outputPriceUnit) {
+            setOutputPriceUnit(outputPriceUnit)
+        }
+    }, [])
     return (
         <main className="pb-24 flex min-h-screen flex-col items-center px-24 dark text-foreground bg-background">
             <div
