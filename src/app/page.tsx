@@ -42,7 +42,7 @@ export default function Home() {
     }, [outputPriceUnit])
 
     useEffect(() => {
-        const outputPriceUnit = localStorage.getItem('outputPriceUnit') as 'USD' | 'CNY';
+        const outputPriceUnit = window.localStorage?.getItem('outputPriceUnit') as 'USD' | 'CNY';
         if (outputPriceUnit) {
             setOutputPriceUnit(outputPriceUnit)
         }
