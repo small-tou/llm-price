@@ -12,6 +12,7 @@ export default function Home() {
     const [outputPriceUnit, setOutputPriceUnit] = useState<'USD' | 'CNY'>('USD')
     const [outputPriceUnitSymbol, setOutputPriceUnitSymbol] = useState<'$' | '¥'>( '$')
 
+    const quickSizes = [1000,5000,10000,100000,1000000]
     function getPrice(sourcePrice: number, from: 'USD' | 'CNY', to: 'USD' | 'CNY') {
 
         if (from === 'USD') {
@@ -63,19 +64,40 @@ export default function Home() {
             </div>
             <div className="z-10 max-w-5xl w-full   font-mono text-sm ">
                 <div className="grid grid-cols-7 gap-4 w-full">
+                    <div  className={'col-span-3'}>
                     <Input type={'number'} placeholder={'Input token size'} label={'Input token size'}
                            value={inputTokenSize as any}
                            onChange={(e) => {
                                setInputTokenSize(parseInt(e.target.value));
                            }}
-                           className={'col-span-3'}/>
-                    <Input type={'number'} placeholder={'Output token size'} label={'Output token size'}
-                           value={outputTokenSize as any}
-                           onChange={(e) => {
-                               setOutputTokenSize(parseInt(e.target.value));
-                           }} className={'col-span-3'}/>
+                          />
+                        <div className={'flex gap-4 mt-2 pl-2'}>
+                            {
+                                quickSizes.map((size) => {
+                                    return <a key={size} href={'#'} onClick={()=>{
+                                        setInputTokenSize(size)
+                                      }} className={'underline'}>{size.toLocaleString()}</a>})
+                            }
+                        </div>
+                    </div>
+                    <div className={'col-span-3'}>
+                        <Input type={'number'} placeholder={'Output token size'} label={'Output token size'}
+                               value={outputTokenSize as any}
+                               onChange={(e) => {
+                                   setOutputTokenSize(parseInt(e.target.value));
+                               }} />
+                        <div className={'flex gap-4 mt-2 pl-2'}>
+                            {
+                                quickSizes.map((size) => {
+                                    return <a key={size} href={'#'} onClick={() => {
+                                        setOutputTokenSize(size);
+                                    }} className={'underline'}>{size.toLocaleString()}</a>;
+                                })
+                            }
+                        </div>
+                    </div>
                     <Select placeholder={'Unit'} defaultSelectedKeys={[outputPriceUnit]} onChange={(e) => {
-                        setOutputPriceUnit(e.target.value as any)
+                        setOutputPriceUnit(e.target.value as any);
                     }} className={'col-span-1'} label={'Price Unit'}>
                         <SelectItem value={'USD'} key={'USD'}>USD</SelectItem>
                         <SelectItem value={'CNY'} key={'CNY'}>CNY</SelectItem>
