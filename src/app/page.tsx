@@ -41,17 +41,17 @@ export default function Home() {
         localStorage.setItem('outputPriceUnit', outputPriceUnit)
     }, [outputPriceUnit])
     return (
-        <main className="flex min-h-screen flex-col items-center px-24 dark text-foreground bg-background">
+        <main className="pb-24 flex min-h-screen flex-col items-center px-24 dark text-foreground bg-background">
             <div
                 className="my-10 w-full max-w-3xl  flex flex-col items-center justify-center px-4 text-center leading-8 md:px-0 gap-2">
                 <div className={'flex gap-4 justify-center'}>
                     <h1 className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b">Simple</h1>
-                    <h1 className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b">Count</h1>
+                    <h1 className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b">Calculate</h1>
                 </div>
                 <div className={'flex gap-4 justify-center'}>
-                    <h1 className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-[linear-gradient(20deg,#915bdf_0%,#8a56cc_20%,#8a56cc_80%,#915bdf_100%)]">LLM</h1>
+                    <h1 className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-[linear-gradient(20deg,#F63B7D_0%,#F67893_100%)]">LLM</h1>
                     <h1 className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b">Token</h1>
-                    <h2 className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b">Price</h2>
+                    <h2 className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-[linear-gradient(20deg,#8354F6_0%,#9899F6_100%)]">Price</h2>
                 </div>
             </div>
             <div className="z-10 max-w-5xl w-full   font-mono text-sm ">
@@ -87,7 +87,7 @@ export default function Home() {
                                     models: platform.models.filter((model) => model.tags.includes(tag))
                                 }
                             });
-                            return <Tab key={platform.name} title={`${platform.name}`}>
+                            return <Tab key={platform.name} title={`${startCase(platform.name)}`}>
                                 {
                                     allTagsWithModel.map((tagWithModel, index) => {
                                         return <div key={tagWithModel.tag}>
@@ -109,30 +109,30 @@ export default function Home() {
                                                                         <Code
                                                                             size={'sm'}
                                                                             className={'text-xs'}
-                                                                            radius={'sm'}>{getFormatedPrice((model.price.input * inputTokenSize / 1000000 + (model.price.output || 0) * outputTokenSize / 1000000), platform.price_unit, outputPriceUnit)}</Code>
+                                                                            radius={'sm'}>Total: {getFormatedPrice((model.price.input * inputTokenSize / 1000000 + (model.price.output || 0) * outputTokenSize / 1000000), platform.price_unit, outputPriceUnit)}</Code>
                                                                     </div>
                                                                     <Divider/>
                                                                     <div>
                                                                         <div
                                                                             className={'flex gap-2    justify-between'}>
                                                                             <div
-                                                                                className={'text-xs'}>Input: <div
-                                                                                className={'text-gray-400'}>{getFormatedPrice((model.price.input / 1000), platform.price_unit, outputPriceUnit)}/Per</div>
+                                                                                className={'text-xs flex gap-2' }>Input: <div
+                                                                                className={'text-gray-400'}>{getFormatedPrice((model.price.input *inputTokenSize / 1000000), platform.price_unit, outputPriceUnit)}</div>
                                                                             </div>
                                                                             {
                                                                                 model.price.output &&
-                                                                                <div className={'text-xs'}
+                                                                                <div className={'text-xs flex gap-2'}
                                                                                 >Output: <div
-                                                                                    className={'text-gray-400'}>{getFormatedPrice(model.price.output / 1000, platform.price_unit, outputPriceUnit)}/Per</div>
+                                                                                    className={'text-gray-400'}>{getFormatedPrice(model.price.output *outputTokenSize / 1000000, platform.price_unit, outputPriceUnit)}</div>
                                                                                 </div>
                                                                             }
-                                                                            {
-                                                                                model.price.training &&
-                                                                                <div className={'text-xs'}
-                                                                                >Training: <div
-                                                                                    className={'text-gray-400'}>{getFormatedPrice(model.price.training / 1000, platform.price_unit, outputPriceUnit)}/Per</div>
-                                                                                </div>
-                                                                            }
+                                                                            {/*{*/}
+                                                                            {/*    model.price.training &&*/}
+                                                                            {/*    <div className={'text-xs'}*/}
+                                                                            {/*    >Training: <div*/}
+                                                                            {/*        className={'text-gray-400'}>{getFormatedPrice(model.price.training / 1000, platform.price_unit, outputPriceUnit)}/Per</div>*/}
+                                                                            {/*    </div>*/}
+                                                                            {/*}*/}
                                                                         </div>
                                                                     </div>
                                                                 </div>

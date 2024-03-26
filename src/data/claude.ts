@@ -1,28 +1,57 @@
-// Claude 2.1
-// 200,000 token context window
-//
-// Input: $8 / MTok
-// Output: $24 / MTok
-// Claude 2.0
-// 100,000 token context window
-//
-// Input: $8 / MTok
-// Output: $24 / MTok
-// Claude Instant
-// 100,000 token context window
-//
-// Input: $0.80 / MTok
-// Output: $2.40 / MTok
+import { PlatformInterface } from '@/data/platform';
 
-// Light & fast
-// Haiku
-// Input: $0.25 / MTok
-// Output: $1.25 / MTok
-// Hard-working
-// Sonnet
-// Input: $3 / MTok
-// Output: $15 / MTok
-// Powerful
-// Opus
-// Input: $15 / MTok
-// Output: $75 / MTok
+export const price_claude:PlatformInterface = {
+  name:'claude',
+  price_unit: 'USD',
+  price_unit_symbol: '$',
+  url: 'https://www.anthropic.com/api',
+  models: [{
+    model:'Claude 3 - Haiku',
+    description:'Light & fast',
+    price: {
+      input: 0.25,
+      output: 1.25
+    },
+    tags: ['common']
+  },{
+    model:'Claude 3 - Sonnet',
+    description: 'Hard-working',
+    price: {
+      input: 3,
+      output: 15
+    },
+    tags: ['common']
+  },{
+    model:'Claude 3 - Opus',
+    description: 'Powerful',
+    price: {
+      input: 15,
+      output: 75
+    },
+    tags: ['common']
+  },{
+    model:'Claude 2.1',
+    description: '200,000 token context window',
+    price: {
+      input: 8,
+      output: 24
+    },
+    tags: ['common']
+  },{
+    model:'Claude 2.0',
+    description: '100,000 token context window',
+    price: {
+      input: 8,
+      output: 24
+    },
+    tags: ['common']
+  },{
+    model:'Claude Instant',
+    description: '100,000 token context window',
+    price: {
+      input: 0.80,
+      output: 2.40
+    },
+    tags: ['common']
+  }]
+}
