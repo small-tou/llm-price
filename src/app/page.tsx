@@ -50,28 +50,28 @@ export default function Home() {
     }
   }, []);
   return (
-    <main className="pb-24 flex min-h-screen flex-col items-center px-24 dark text-foreground bg-background">
+    <main className="pb-24 flex min-h-screen flex-col items-center px-2 md:px-24 dark text-foreground bg-background">
       <div
         className="my-10 w-full max-w-3xl  flex flex-col items-center justify-center px-4 text-center leading-8 md:px-0 gap-2">
         <div className={'flex gap-4 justify-center'}>
           <h1
-            className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b">Simple</h1>
+            className="tracking-tight inline font-bold from-[#FFFFFF] to-[#DCDCDC] text-3xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-b">Simple</h1>
           <h1
-            className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b">Calculate</h1>
+            className="tracking-tight inline font-bold from-[#FFFFFF] to-[#DCDCDC] text-3xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-b">Calculate</h1>
         </div>
         <div className={'flex gap-4 justify-center'}>
           <h1
-            className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-[linear-gradient(20deg,#F63B7D_0%,#F67893_100%)]">LLM</h1>
+            className="tracking-tight inline font-bold from-[#FFFFFF] to-[#DCDCDC] text-3xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-[linear-gradient(20deg,#F63B7D_0%,#F67893_100%)]">LLM</h1>
           <h1
-            className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b">Token</h1>
+            className="tracking-tight inline font-bold from-[#FFFFFF] to-[#DCDCDC] text-3xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-b">Token</h1>
           <h2
-            className="tracking-tight inline font-semibold from-[#FFFFFF] to-[#DCDCDC] text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-[linear-gradient(20deg,#8354F6_0%,#9899F6_100%)]">Price</h2>
+            className="tracking-tight inline font-bold from-[#FFFFFF] to-[#DCDCDC] text-3xl md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-[linear-gradient(20deg,#8354F6_0%,#9899F6_100%)]">Price</h2>
         </div>
-        <p className="text-lg text-gray-400 underline">llmprice.app</p>
+        <p className="text-lg text-gray-400 underline">https://llmprice.app</p>
       </div>
       <div className="z-10 max-w-5xl w-full   font-mono text-sm ">
         <div className="grid grid-cols-7 gap-4 w-full">
-          <div className={'col-span-3'}>
+          <div className={'col-span-7 sm:col-span-7  md:col-span-3'}>
             <Input type={'number'} placeholder={'Input token size'} label={'Input token size'}
                    value={inputTokenSize as any}
                    onChange={(e) => {
@@ -88,7 +88,7 @@ export default function Home() {
               }
             </div>
           </div>
-          <div className={'col-span-3'}>
+          <div className={'col-span-7 sm:col-span-7 md:col-span-3'}>
             <Input type={'number'} placeholder={'Output token size'} label={'Output token size'}
                    value={outputTokenSize as any}
                    onChange={(e) => {
@@ -106,7 +106,7 @@ export default function Home() {
           </div>
           <Select placeholder={'Unit'} defaultSelectedKeys={[outputPriceUnit]} onChange={(e) => {
             setOutputPriceUnit(e.target.value as any);
-          }} className={'col-span-1'} label={'Price Unit'}>
+          }} className={'col-span-7  sm:col-span-7 md:col-span-1'} label={'Price Unit'}>
             <SelectItem value={'USD'} key={'USD'}>USD</SelectItem>
             <SelectItem value={'CNY'} key={'CNY'}>CNY</SelectItem>
           </Select>
@@ -135,7 +135,7 @@ export default function Home() {
                           {startCase(tagWithModel.tag)}
                         </a>
                       </h3>
-                      <div className={'grid grid-cols-3 gap-4'}>
+                      <div className={'grid  grid-cols-1 md:grid-cols-3 gap-4'}>
                         {
                           tagWithModel.models.map((model, index) => {
                             return <Card key={model.model}>
