@@ -140,7 +140,7 @@ export default function Home() {
                           tagWithModel.models.map((model, index) => {
                             return <Card key={model.model}>
                               <CardBody>
-                                <div className={'flex flex-col gap-2'}>
+                                <div className={'flex flex-col gap-2 justify-between h-full'}>
                                   <div
                                     className={'flex justify-between'}>{model.model}
                                     <Code
@@ -148,8 +148,12 @@ export default function Home() {
                                       className={'text-xs'}
                                       radius={'sm'}>Total: {getFormatedPrice((model.price.input * inputTokenSize / 1000000 + (model.price.output || 0) * outputTokenSize / 1000000), platform.price_unit, outputPriceUnit)}</Code>
                                   </div>
-                                  <Divider />
+                                  <div className={'text-[12px] text-gray-500'}>
+                                    {model.description}
+                                  </div>
+
                                   <div>
+                                    <Divider className={'mb-2'}/>
                                     <div
                                       className={'flex gap-2    justify-between'}>
                                       <div
