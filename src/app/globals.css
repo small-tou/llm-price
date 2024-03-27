@@ -31,3 +31,37 @@ body {
     text-wrap: balance;
   }
 }
+
+
+@font-face {
+  font-family: Montserrat;
+  src: url('/Montserrat/Montserrat-Regular.ttf');
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url('/Montserrat/Montserrat-Bold.ttf');
+  font-style: normal;
+  font-weight: bold;
+}
+@font-face {
+  font-family: Josefin Slab;
+  src: url('/slab/JosefinSlab-SemiBold.ttf');
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: Josefin Slab;
+  src: url('/slab/JosefinSlab-Bold.ttf');
+  font-style: normal;
+  font-weight: bold;
+}
+* {
+  font-family: Montserrat, Inter, Roboto, -apple-system, BlinkMacSystemFont,
+  PingFang SC, Microsoft YaHei, sans-serif !important;
+}
+body p {
+  font-family: Montserrat, Inter, Roboto, -apple-system, BlinkMacSystemFont,
+  PingFang SC, Microsoft YaHei, sans-serif;
+}

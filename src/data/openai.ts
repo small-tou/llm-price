@@ -6,12 +6,14 @@ export const price_openai: PlatformInterface = {
     url: 'https://openai.com/pricing',
     models: [{
         model: 'GPT-4 Turbo',
+        description:'With 128k context, fresher knowledge and the broadest set of capabilities, GPT-4 Turbo is more powerful than GPT-4 and offered at a lower price.',
         price: {
             input: 10,
             output: 30
         }, tags: ['common']
     }, {
         model: 'GPT-4',
+        description:'With broad general knowledge and domain expertise, GPT-4 can follow complex instructions in natural language and solve difficult problems with accuracy.',
         price: {
             input: 30,
             output: 60
@@ -24,12 +26,14 @@ export const price_openai: PlatformInterface = {
         }, tags: ['common']
     }, {
         model: 'gpt-3.5-turbo',
+        description:'is the flagship model of this family, supports a 16K context window and is optimized for dialog',
         price: {
             input: 0.5,
             output: 1.5
         }, tags: ['common']
     }, {
         model: 'gpt-3.5-turbo-instruct',
+        description:'is an Instruct model and only supports a 4K context window.',
         price: {
             input: 1.5,
             output: 2
