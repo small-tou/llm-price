@@ -1,6 +1,6 @@
-import { price_openai } from '@/data/openai';
-import { price_azure } from '@/data/azure';
-import { price_moonshot } from '@/data/moonshot';
+import {price_openai} from "@/data/openai";
+import {price_azure} from "@/data/azure";
+import {price_moonshot} from "@/data/moonshot";
 import { price_claude } from '@/data/claude';
 import { price_zhipu } from '@/data/zhipu';
 
