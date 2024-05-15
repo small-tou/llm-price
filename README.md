@@ -2,6 +2,10 @@ This is a simple price calculator for llm models
 
 deployed at https://llm-price.app
 
+## Product Features
+
+This app offers a comprehensive suite of features designed to calculate and compare prices for different AI models and platforms efficiently. It supports multiple AI models and platforms, showcasing the app's versatility in handling various price calculation needs. With a user-friendly interface, users can quickly access price calculations, making it an essential tool for anyone looking to analyze and compare AI model costs effectively.
+
 ## 贡献 Contributing
 
 1. Fork it!
@@ -32,4 +36,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
- 
