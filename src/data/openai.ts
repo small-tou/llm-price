@@ -7,19 +7,27 @@ export const price_openai: PlatformInterface = {
   url: 'https://openai.com/pricing',
   models: [
     {
-      model: 'GPT-4 Turbo',
-      description:
-        'With 128k context, fresher knowledge and the broadest set of capabilities, GPT-4 Turbo is more powerful than GPT-4 and offered at a lower price.',
+      model: 'GPT-4o',
+      description: 'GPT-4o model with specified rates for input and output tokens.',
       price: {
-        input: 10,
-        output: 30,
+        input: 5,
+        output: 15,
       },
       tags: ['common'],
     },
     {
-      model: 'gpt-4-turbo-2024-04-09',
+      model: 'GPT-4o-2024-05-13',
+      description: 'GPT-4o model variant with specified rates for input and output tokens.',
+      price: {
+        input: 5,
+        output: 15,
+      },
+      tags: ['common'],
+    },
+    {
+      model: 'GPT-4 Turbo',
       description:
-        'Variant of GPT-4 Turbo with specific pricing.',
+        'With 128k context, fresher knowledge and the broadest set of capabilities, GPT-4 Turbo is more powerful than GPT-4 and offered at a lower price.',
       price: {
         input: 10,
         output: 30,
@@ -124,23 +132,6 @@ export const price_openai: PlatformInterface = {
       },
       tags: ['common'],
     },
-    {
-      model: 'gpt-4o',
-      description: 'GPT-4o model with specified rates for input and output tokens.',
-      price: {
-        input: 5,
-        output: 15,
-      },
-      tags: ['common'],
-    },
-    {
-      model: 'gpt-4o-2024-05-13',
-      description: 'GPT-4o model variant with specified rates for input and output tokens.',
-      price: {
-        input: 5,
-        output: 15,
-      },
-      tags: ['common'],
-    },
+
   ],
 };
