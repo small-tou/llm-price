@@ -17,6 +17,16 @@ export const price_openai: PlatformInterface = {
       tags: ['common'],
     },
     {
+      model: 'gpt-4-turbo-2024-04-09',
+      description:
+        'Variant of GPT-4 Turbo with specific pricing.',
+      price: {
+        input: 10,
+        output: 30,
+      },
+      tags: ['common'],
+    },
+    {
       model: 'GPT-4',
       description:
         'With broad general knowledge and domain expertise, GPT-4 can follow complex instructions in natural language and solve difficult problems with accuracy.',
