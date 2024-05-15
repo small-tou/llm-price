@@ -5,7 +5,7 @@ import { price_claude } from '@/data/claude';
 import { price_zhipu } from '@/data/zhipu';
 import { price_baichuan } from '@/data/baichuan';
 
-type ITag = 'common' | 'fine-tuned' | 'custom' | 'embedding';
+type ITag = 'common' | 'fine-tuned' | 'custom' | 'embedding' | 'npc';
 export type ModelInterface = {
   // model name
   model: string;
