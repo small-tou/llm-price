@@ -4,8 +4,9 @@ import { price_moonshot } from '@/data/moonshot';
 import { price_claude } from '@/data/claude';
 import { price_zhipu } from '@/data/zhipu';
 import { price_baichuan } from '@/data/baichuan';
+import { price_qwen } from '@/data/qwen';
 
-type ITag = 'common' | 'fine-tuned' | 'custom' | 'embedding' | 'npc';
+type ITag = 'common' | 'fine-tuned' | 'custom' | 'embedding' | 'npc' | 'qwen';
 export type ModelInterface = {
   // model name
   model: string;
@@ -35,12 +36,13 @@ export type PlatformInterface = {
   // platform models
   models: ModelInterface[];
 };
-export const platforms: Record<'openai' | 'azure' | 'moonshot' | 'claude' | 'zhipu' | 'baichuan', PlatformInterface> = {
+export const platforms: Record<'openai' | 'azure' | 'moonshot' | 'claude' | 'zhipu' | 'baichuan' | 'qwen', PlatformInterface> = {
   openai: price_openai,
   azure: price_azure,
   claude: price_claude,
   moonshot: price_moonshot,
   zhipu: price_zhipu,
   baichuan: price_baichuan,
+  qwen: price_qwen,
 };
 export const platform_keys = Object.keys(platforms) as Array<keyof typeof platforms>;
