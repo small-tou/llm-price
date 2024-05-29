@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { platform_keys, platforms } from '@/data/platform';
 import { startCase, uniq } from 'lodash';
 import { Divider } from '@nextui-org/divider';
+import ModelCard from '@/components/ModelCard';
 
 export default function Home() {
   const [inputTokenSize, setInputTokenSize] = useState<number>(1000);
@@ -165,54 +166,33 @@ export default function Home() {
                       </h3>
                       <div className={'grid  grid-cols-1 md:grid-cols-3 gap-4'}>
                         {tagWithModel.models.map((model, index) => {
+                          const total = getFormatedPrice(
+                            (model.price.input * inputTokenSize) / 1000000 +
+                              ((model.price.output || 0) * outputTokenSize) / 1000000,
+                            platform.price_unit,
+                            outputPriceUnit,
+                          );
+                          const inputPrice = getFormatedPrice(
+                            (model.price.input * inputTokenSize) / 1000000,
+                            platform.price_unit,
+                            outputPriceUnit,
+                          );
+                          const outputPrice = model.price.output
+                            ? getFormatedPrice(
+                                (model.price.output * outputTokenSize) / 1000000,
+                                platform.price_unit,
+                                outputPriceUnit,
+                              )
+                            : undefined;
                           return (
-                            <Card key={model.model}>
-                              <CardBody>
-                                <div className={'flex flex-col gap-2 justify-between h-full'}>
-                                  <div className={'flex justify-between'}>
-                                    {model.model}
-                                    <Code size={'sm'} className={'text-xs'} radius={'sm'}>
-                                      Total:{' '}
-                                      {getFormatedPrice(
-                                        (model.price.input * inputTokenSize) / 1000000 +
-                                          ((model.price.output || 0) * outputTokenSize) / 1000000,
-                                        platform.price_unit,
-                                        outputPriceUnit,
-                                      )}
-                                    </Code>
-                                  </div>
-                                  <div className={'text-[12px] text-gray-500'}>{model.description}</div>
-
-                                  <div>
-                                    <Divider className={'mb-2'} />
-                                    <div className={'flex gap-2    justify-between'}>
-                                      <div className={'text-xs flex gap-2'}>
-                                        Input:{' '}
-                                        <div className={'text-gray-400'}>
-                                          {getFormatedPrice(
-                                            (model.price.input * inputTokenSize) / 1000000,
-                                            platform.price_unit,
-                                            outputPriceUnit,
-                                          )}
-                                        </div>
-                                      </div>
-                                      {model.price.output && (
-                                        <div className={'text-xs flex gap-2'}>
-                                          Output:{' '}
-                                          <div className={'text-gray-400'}>
-                                            {getFormatedPrice(
-                                              (model.price.output * outputTokenSize) / 1000000,
-                                              platform.price_unit,
-                                              outputPriceUnit,
-                                            )}
-                                          </div>
-                                        </div>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              </CardBody>
-                            </Card>
+                            <ModelCard
+                              key={model.model}
+                              model={model.model}
+                              description={model.description || ''}
+                              inputPrice={inputPrice}
+                              outputPrice={outputPrice}
+                              total={total}
+                            />
                           );
                         })}
                       </div>
