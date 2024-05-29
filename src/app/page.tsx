@@ -1,5 +1,5 @@
 'use client';
-import { Card, CardBody, Code, Input, Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
+import { Button, Card, CardBody, Code, Input, Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import { platform_keys, platforms } from '@/data/platform';
 import { startCase, uniq } from 'lodash';
@@ -10,8 +10,26 @@ export default function Home() {
   const [outputTokenSize, setOutputTokenSize] = useState<number>(1000);
   const [outputPriceUnit, setOutputPriceUnit] = useState<'USD' | 'CNY'>('USD');
   const [outputPriceUnitSymbol, setOutputPriceUnitSymbol] = useState<'$' | '¥'>('$');
+  const [comparisonSequence, setComparisonSequence] = useState([]);
 
   const quickSizes = [1000, 5000, 10000, 100000, 1000000];
+
+  useEffect(() => {
+    const storedSequence = JSON.parse(localStorage.getItem('comparisonSequence') || '[]');
+    setComparisonSequence(storedSequence);
+  }, []);
+
+  const addToCompare = (model) => {
+    const newSequence = [...comparisonSequence, model];
+    setComparisonSequence(newSequence);
+    localStorage.setItem('comparisonSequence', JSON.stringify(newSequence));
+  };
+
+  const removeFromCompare = (modelToRemove) => {
+    const newSequence = comparisonSequence.filter((model) => model.model !== modelToRemove.model);
+    setComparisonSequence(newSequence);
+    localStorage.setItem('comparisonSequence', JSON.stringify(newSequence));
+  };
 
   function getPrice(sourcePrice: number, from: 'USD' | 'CNY', to: 'USD' | 'CNY') {
     if (from === 'USD') {
@@ -209,6 +227,9 @@ export default function Home() {
                                         </div>
                                       )}
                                     </div>
+                                    <Button size="xs" color="secondary" onClick={() => addToCompare(model)}>
+                                      Add to Compare
+                                    </Button>
                                   </div>
                                 </div>
                               </CardBody>
@@ -223,6 +244,23 @@ export default function Home() {
             );
           })}
         </Tabs>
+      </div>
+      <div className="mt-5 w-full max-w-5xl">
+        <h2 className="text-lg font-semibold">Comparison Sequence:</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {comparisonSequence.map((model, index) => (
+            <Card key={index}>
+              <CardBody>
+                <div className="flex justify-between items-center">
+                  <span>{model.model}</span>
+                  <Button size="xs" color="error" onClick={() => removeFromCompare(model)}>
+                    Remove
+                  </Button>
+                </div>
+              </CardBody>
+            </Card>
+          ))}
+        </div>
       </div>
     </main>
   );
