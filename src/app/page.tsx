@@ -5,6 +5,7 @@ import { platform_keys, platforms } from '@/data/platform';
 import { startCase, uniq } from 'lodash';
 import { Divider } from '@nextui-org/divider';
 import ModelCard from '@/components/ModelCard';
+import RetroGrid from '@/components/RetroGrid';
 
 export default function Home() {
   const [inputTokenSize, setInputTokenSize] = useState<number>(1000);
@@ -48,11 +49,12 @@ export default function Home() {
     }
   }, []);
   return (
-    <main className="pb-24 flex min-h-screen flex-col items-center px-2 md:px-24 dark text-foreground bg-background">
-      <div className="my-10 w-full max-w-3xl  flex flex-col items-center justify-center px-4 text-center leading-8 md:px-0 gap-2 md:gap-6">
+    <main className="pb-24 flex min-h-screen flex-col items-center px-2 md:px-24 light text-foreground bg-background">
+      <div
+        className="my-10 w-full max-w-3xl  flex flex-col items-center justify-center px-4 text-center leading-8 md:px-0 gap-2 md:gap-6">
         <div
           className={
-            'flex gap-2 md:gap-4 justify-center tracking-tight inline font-medium from-[#FFFFFF] to-[#DCDCDC] text-2xl md:text-3xl lg:text-4xl bg-clip-text text-transparent bg-gradient-to-b'
+            'flex gap-2 md:gap-4 justify-center tracking-tight inline font-medium text-gray-900 text-2xl md:text-3xl lg:text-4xl bg-clip-text text-transparent bg-gradient-to-b'
           }
         >
           <h1>Simple</h1>
@@ -61,17 +63,21 @@ export default function Home() {
           <h1>Compare</h1>
         </div>
         <div className={'flex gap-4 justify-center text-3xl md:text-5xl lg:text-6xl font-[600]'}>
-          <h1 className="tracking-tight inline  from-[#FFFFFF] to-[#DCDCDC]   bg-clip-text text-transparent bg-[linear-gradient(20deg,#F63B7D_0%,#F67893_100%)]">
+          <h1
+            className="tracking-tight inline    bg-clip-text text-transparent bg-[linear-gradient(20deg,#F63B7D_0%,#F67893_100%)]">
             LLM
           </h1>
-          <h1 className="tracking-tight inline  from-[#FFFFFF] to-[#DCDCDC]  bg-clip-text text-transparent bg-gradient-to-b">
+          <h1
+            className="tracking-tight inline text-gray-900  bg-clip-text text-transparent bg-gradient-to-b">
             Token
           </h1>
-          <h2 className="tracking-tight inline  from-[#FFFFFF] to-[#DCDCDC]  bg-clip-text text-transparent bg-[linear-gradient(20deg,#8354F6_0%,#9899F6_100%)]">
+          <h2
+            className="tracking-tight inline   bg-clip-text text-transparent bg-[linear-gradient(20deg,#8354F6_0%,#9899F6_100%)]">
             Price
           </h2>
         </div>
         <p className="text-gray-400 underline text-sm md:text-medium">https://llmprice.app</p>
+        <RetroGrid />
       </div>
       <div className="z-10 max-w-5xl w-full   font-mono text-sm ">
         <div className="grid grid-cols-7 gap-4 w-full">
@@ -168,7 +174,7 @@ export default function Home() {
                         {tagWithModel.models.map((model, index) => {
                           const total = getFormatedPrice(
                             (model.price.input * inputTokenSize) / 1000000 +
-                              ((model.price.output || 0) * outputTokenSize) / 1000000,
+                            ((model.price.output || 0) * outputTokenSize) / 1000000,
                             platform.price_unit,
                             outputPriceUnit,
                           );
@@ -179,10 +185,10 @@ export default function Home() {
                           );
                           const outputPrice = model.price.output
                             ? getFormatedPrice(
-                                (model.price.output * outputTokenSize) / 1000000,
-                                platform.price_unit,
-                                outputPriceUnit,
-                              )
+                              (model.price.output * outputTokenSize) / 1000000,
+                              platform.price_unit,
+                              outputPriceUnit,
+                            )
                             : undefined;
                           return (
                             <ModelCard
