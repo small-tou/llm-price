@@ -54,7 +54,7 @@ export default function Home() {
         className="my-10 w-full max-w-3xl  flex flex-col items-center justify-center px-4 text-center leading-8 md:px-0 gap-2 md:gap-6">
         <div
           className={
-            'flex gap-2 md:gap-4 justify-center tracking-tight inline font-medium text-gray-900 text-2xl md:text-3xl lg:text-4xl bg-clip-text text-transparent bg-gradient-to-b'
+            'flex gap-2 md:gap-4 justify-center tracking-tight inline font-medium text-gray-900 text-2xl md:text-3xl lg:text-4xl bg-clip-text  bg-gradient-to-b'
           }
         >
           <h1>Simple</h1>
@@ -68,7 +68,7 @@ export default function Home() {
             LLM
           </h1>
           <h1
-            className="tracking-tight inline text-gray-900  bg-clip-text text-transparent bg-gradient-to-b">
+            className="tracking-tight inline text-gray-900  bg-clip-text  bg-gradient-to-b">
             Token
           </h1>
           <h2
