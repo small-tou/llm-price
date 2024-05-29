@@ -36,3 +36,8 @@ To learn more about Next.js, take a look at the following resources:
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
+
+## 状态 Stat
+
+![Alt](https://repobeats.axiom.co/api/embed/dd4a6ece023c4539c4872f4075047574d5d492fd.svg "Repobeats analytics image")
+
