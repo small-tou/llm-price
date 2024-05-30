@@ -1,6 +1,6 @@
 This is a simple price calculator for llm models
 
-deployed at https://llm-price.app
+deployed at https://llmprice.app
 
 ## Product Features
 
