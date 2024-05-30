@@ -12,6 +12,7 @@ export default function Home() {
   const [outputTokenSize, setOutputTokenSize] = useState<number>(1000);
   const [outputPriceUnit, setOutputPriceUnit] = useState<'USD' | 'CNY'>('USD');
   const [outputPriceUnitSymbol, setOutputPriceUnitSymbol] = useState<'$' | '¥'>('$');
+  const [compareList, setCompareList] = useState([]);
 
   const quickSizes = [1000, 5000, 10000, 100000, 1000000];
 
@@ -48,6 +49,26 @@ export default function Home() {
       setOutputPriceUnit(outputPriceUnit);
     }
   }, []);
+
+  useEffect(() => {
+    const storedCompareList = JSON.parse(localStorage.getItem('compareList') || '[]');
+    setCompareList(storedCompareList);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('compareList', JSON.stringify(compareList));
+  }, [compareList]);
+
+  const addToCompare = (model) => {
+    if (!compareList.find((m) => m.model === model.model)) {
+      setCompareList([...compareList, model]);
+    }
+  };
+
+  const removeFromCompare = (model) => {
+    setCompareList(compareList.filter((m) => m.model !== model.model));
+  };
+
   return (
     <main className="pb-24 flex min-h-screen flex-col items-center px-2 md:px-24 light text-foreground bg-background">
       <div
@@ -198,6 +219,9 @@ export default function Home() {
                               inputPrice={inputPrice}
                               outputPrice={outputPrice}
                               total={total}
+                              onAddToCompare={() => addToCompare(model)}
+                              onRemoveFromCompare={() => removeFromCompare(model)}
+                              isInCompareList={compareList.some((m) => m.model === model.model)}
                             />
                           );
                         })}
@@ -209,6 +233,39 @@ export default function Home() {
             );
           })}
         </Tabs>
+      </div>
+      <div className="mt-5 w-full max-w-5xl">
+        <h2 className="text-xl font-semibold">Compare List</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {compareList.map((model, index) => (
+            <ModelCard
+              key={model.model}
+              model={model.model}
+              description={model.description || ''}
+              inputPrice={getFormatedPrice(
+                (model.price.input * inputTokenSize) / 1000000,
+                model.price_unit,
+                outputPriceUnit,
+              )}
+              outputPrice={model.price.output
+                ? getFormatedPrice(
+                  (model.price.output * outputTokenSize) / 1000000,
+                  model.price_unit,
+                  outputPriceUnit,
+                )
+                : undefined}
+              total={getFormatedPrice(
+                (model.price.input * inputTokenSize) / 1000000 +
+                ((model.price.output || 0) * outputTokenSize) / 1000000,
+                model.price_unit,
+                outputPriceUnit,
+              )}
+              onAddToCompare={() => {}}
+              onRemoveFromCompare={() => removeFromCompare(model)}
+              isInCompareList={true}
+            />
+          ))}
+        </div>
       </div>
     </main>
   );

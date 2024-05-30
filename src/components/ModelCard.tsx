@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody, Code, Divider } from '@nextui-org/react';
+import { Card, CardBody, Code, Divider, Button } from '@nextui-org/react';
 
 interface ModelCardProps {
   model: string;
@@ -7,9 +7,21 @@ interface ModelCardProps {
   inputPrice: string;
   outputPrice?: string;
   total: string;
+  onAddToCompare: () => void;
+  onRemoveFromCompare: () => void;
+  isInCompareList: boolean;
 }
 
-export const ModelCard: React.FC<ModelCardProps> = ({ model, description, inputPrice, outputPrice, total }) => {
+export const ModelCard: React.FC<ModelCardProps> = ({
+  model,
+  description,
+  inputPrice,
+  outputPrice,
+  total,
+  onAddToCompare,
+  onRemoveFromCompare,
+  isInCompareList,
+}) => {
   return (
     <Card>
       <CardBody>
@@ -34,6 +46,18 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, description, inputP
                 </div>
               )}
             </div>
+          </div>
+          <div className="flex justify-end gap-2">
+            {!isInCompareList && (
+              <Button auto flat color="success" onClick={onAddToCompare}>
+                Add to Compare
+              </Button>
+            )}
+            {isInCompareList && (
+              <Button auto flat color="error" onClick={onRemoveFromCompare}>
+                Remove from Compare
+              </Button>
+            )}
           </div>
         </div>
       </CardBody>
