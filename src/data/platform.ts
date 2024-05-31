@@ -8,6 +8,7 @@ import { price_qwen } from '@/data/qwen';
 import { price_deepseek } from '@/data/deepseek';
 
 type ITag = 'common' | 'fine-tuned' | 'custom' | 'embedding' | 'npc' | 'qwen';
+export type IPlatform = 'openai' | 'azure' | 'claude' | 'moonshot' | 'zhipu' | 'baichuan' | 'qwen' | 'deepseek';
 export type ModelInterface = {
   // model name
   model: string;
@@ -37,7 +38,7 @@ export type PlatformInterface = {
   // platform models
   models: ModelInterface[];
 };
-export const platforms: Record<'openai' | 'azure' | 'moonshot' | 'claude' | 'zhipu' | 'baichuan' | 'qwen' | 'deepseek', PlatformInterface> = {
+export const platforms: Record<IPlatform, PlatformInterface> = {
   openai: price_openai,
   azure: price_azure,
   claude: price_claude,
