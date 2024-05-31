@@ -1,18 +1,30 @@
 'use client';
 import { Card, CardBody, Code, Input, Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import { platform_keys, platforms } from '@/data/platform';
+import { IPlatform, ModelInterface, platform_keys, PlatformInterface, platforms } from '@/data/platform';
 import { startCase, uniq } from 'lodash';
 import { Divider } from '@nextui-org/divider';
 import ModelCard from '@/components/ModelCard';
 import RetroGrid from '@/components/RetroGrid';
+
+const allModelList: (ModelInterface & {
+  platformName: IPlatform,
+})[] = platform_keys.map((key) => {
+  return platforms[key].models.map(m => ({
+    ...m,
+    platformName: key,
+  }));
+}).flat();
 
 export default function Home() {
   const [inputTokenSize, setInputTokenSize] = useState<number>(1000);
   const [outputTokenSize, setOutputTokenSize] = useState<number>(1000);
   const [outputPriceUnit, setOutputPriceUnit] = useState<'USD' | 'CNY'>('USD');
   const [outputPriceUnitSymbol, setOutputPriceUnitSymbol] = useState<'$' | '¥'>('$');
-  const [compareList, setCompareList] = useState([]);
+  const [compareList, setCompareList] = useState<{
+    platformName: IPlatform;
+    model: string;
+  }[]>([]);
 
   const quickSizes = [1000, 5000, 10000, 100000, 1000000];
 
@@ -59,14 +71,20 @@ export default function Home() {
     localStorage.setItem('compareList', JSON.stringify(compareList));
   }, [compareList]);
 
-  const addToCompare = (model) => {
-    if (!compareList.find((m) => m.model === model.model)) {
-      setCompareList([...compareList, model]);
+  const addToCompare = (item: {
+    platformName: IPlatform;
+    model: string;
+  }) => {
+    if (!compareList.find((m) => m.model === item.model)) {
+      setCompareList([...compareList, item]);
     }
   };
 
-  const removeFromCompare = (model) => {
-    setCompareList(compareList.filter((m) => m.model !== model.model));
+  const removeFromCompare = (item: {
+    platformName: IPlatform;
+    model: string;
+  }) => {
+    setCompareList(compareList.filter((m) => m.model !== item.model && m.platformName !== item.platformName));
   };
 
   return (
@@ -97,7 +115,7 @@ export default function Home() {
             Price
           </h2>
         </div>
-        <p className="text-gray-400 underline text-sm md:text-medium">https://llmprice.app</p>
+        <p className="text-gray-600 underline text-sm md:text-medium">https://llmprice.app</p>
         <RetroGrid />
       </div>
       <div className="z-10 max-w-5xl w-full   font-mono text-sm ">
@@ -172,7 +190,49 @@ export default function Home() {
           </Select>
         </div>
       </div>
-      <div className={'mt-5 w-full max-w-5xl'}>
+      {
+        compareList.length > 0 ? (<div className="mt-6 w-full max-w-5xl">
+            <h2 className="text-lg font-semibold">Compare List</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {compareList.map((item, index) => {
+                const model = allModelList.find((m) => m.model === item.model && m.platformName === item.platformName);
+                if (!model) return null;
+                const platform = platforms[model.platformName];
+                return (
+                  <ModelCard
+                    key={model.model}
+                    model={model.model}
+                    description={model.description || ''}
+                    inputPrice={getFormatedPrice(
+                      (model.price.input * inputTokenSize) / 1000000,
+                      platform.price_unit,
+                      outputPriceUnit,
+                    )}
+                    outputPrice={model.price.output
+                      ? getFormatedPrice(
+                        (model.price.output * outputTokenSize) / 1000000,
+                        platform.price_unit,
+                        outputPriceUnit,
+                      )
+                      : undefined}
+                    total={getFormatedPrice(
+                      (model.price.input * inputTokenSize) / 1000000 +
+                      ((model.price.output || 0) * outputTokenSize) / 1000000,
+                      platform.price_unit,
+                      outputPriceUnit,
+                    )}
+                    onAddToCompare={() => addToCompare(item)}
+                    onRemoveFromCompare={() => removeFromCompare(item)}
+                    isInCompareList={true}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ) : null
+      }
+
+      <div className={'mt-6 w-full max-w-5xl'}>
         <Tabs aria-label="Options" color={'secondary'} className={'w-full'}>
           {plateformKeyList.map((key, index) => {
             const platform = platforms[key];
@@ -188,7 +248,7 @@ export default function Home() {
                 {allTagsWithModel.map((tagWithModel, index) => {
                   return (
                     <div key={tagWithModel.tag}>
-                      <h3 className="mt-4 mb-2 flex whitespace-pre-wrap not-prose">
+                      <h3 className="mt-3 mb-2 flex whitespace-pre-wrap not-prose">
                         <a className="group relative border-none text-lg">{startCase(tagWithModel.tag)}</a>
                       </h3>
                       <div className={'grid  grid-cols-1 md:grid-cols-3 gap-4'}>
@@ -219,8 +279,14 @@ export default function Home() {
                               inputPrice={inputPrice}
                               outputPrice={outputPrice}
                               total={total}
-                              onAddToCompare={() => addToCompare(model)}
-                              onRemoveFromCompare={() => removeFromCompare(model)}
+                              onAddToCompare={() => addToCompare({
+                                platformName: key,
+                                model: model.model,
+                              })}
+                              onRemoveFromCompare={() => removeFromCompare({
+                                platformName: key,
+                                model: model.model,
+                              })}
                               isInCompareList={compareList.some((m) => m.model === model.model)}
                             />
                           );
@@ -234,39 +300,7 @@ export default function Home() {
           })}
         </Tabs>
       </div>
-      <div className="mt-5 w-full max-w-5xl">
-        <h2 className="text-xl font-semibold">Compare List</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {compareList.map((model, index) => (
-            <ModelCard
-              key={model.model}
-              model={model.model}
-              description={model.description || ''}
-              inputPrice={getFormatedPrice(
-                (model.price.input * inputTokenSize) / 1000000,
-                model.price_unit,
-                outputPriceUnit,
-              )}
-              outputPrice={model.price.output
-                ? getFormatedPrice(
-                  (model.price.output * outputTokenSize) / 1000000,
-                  model.price_unit,
-                  outputPriceUnit,
-                )
-                : undefined}
-              total={getFormatedPrice(
-                (model.price.input * inputTokenSize) / 1000000 +
-                ((model.price.output || 0) * outputTokenSize) / 1000000,
-                model.price_unit,
-                outputPriceUnit,
-              )}
-              onAddToCompare={() => {}}
-              onRemoveFromCompare={() => removeFromCompare(model)}
-              isInCompareList={true}
-            />
-          ))}
-        </div>
-      </div>
+
     </main>
   );
 }
