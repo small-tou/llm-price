@@ -114,5 +114,35 @@ export const price_openai: PlatformInterface = {
       },
       tags: ['common'],
     },
+    {
+      model: 'gpt-4o',
+      description: 'GPT-4o model with specified rates for input and output tokens.',
+      price: {
+        input: 5,
+        output: 15,
+      },
+      tags: ['common'],
+    },
+    {
+      model: 'gpt-4o-2024-05-13',
+      description: 'GPT-4o model variant with specified rates for input and output tokens.',
+      price: {
+        input: 5,
+        output: 15,
+      },
+      tags: ['common'],
+    },
   ],
 };
+
+
+
+
+
+
+
+
+
+
+
+
